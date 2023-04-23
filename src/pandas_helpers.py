@@ -6,24 +6,42 @@ def load_df(filename):
     '''
     loads {filename} as a pandas DataFrame 
     in: filename
-    out: returns pandas DataFrame.
+    out: returns pandas DataFrame
     '''
     pass
 
 
-def count_rows(dataframe):
+def all_uniques_in_all_cols(df):
     '''
-    in: dataframe 
-    out: returns the number of rows in that dataframe
+    use: lists all the unique values for evey column in a dataframe
+    input: dataframe
+    output: formatted output of all the unique values in the dataframe
+    
     '''
-    pass
+    for col in df.columns.to_list():
+        print(f"""There are {df[col].nunique()} unique values for {col}:
+              {df[col].unique()}
+              """)
 
-def count_cols(dataframe):
-    ''' 
-    in: dataframe
-    out: returns the number of columns in that dataframe
+
+def nulls_in_col(df, col, count:int):
     '''
-    pass
+    use: makes a dataframe showing the rows with null in particular column
+    input: dataframe, 'single column', max rows to return
+    output: dataframe of rows <= count with nulls in col 
+    
+    '''
+    return df[df[col].isnull()].head(count)
+
+
+def rows_w_col_val(df, col, val):
+    '''
+    use: makes a dataframe showing rows with particular in a specified column
+    input: dataframe, 'single column', 'value to search'
+    output: dataframe of rows <= count with nulls in col 
+    
+    '''
+    return df.loc[df[col] == val]   
 
 
 def sum_two_columns(dataframe, col1, col2):

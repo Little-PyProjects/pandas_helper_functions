@@ -2,6 +2,7 @@ import pandas as pd
 import os
 
 
+<<<<<<< HEAD
 # converting data:
 
 def splitLatLong(df):
@@ -46,6 +47,8 @@ def conv_to_dd(df):
 # data familiarization
 
 
+=======
+>>>>>>> refs/remotes/origin/master
 def all_uniques_in_all_cols(df):
     '''
     use: lists all the unique values for evey column in a dataframe

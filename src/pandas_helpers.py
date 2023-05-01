@@ -2,7 +2,6 @@ import pandas as pd
 import os
 
 
-<<<<<<< HEAD
 # converting data:
 
 def splitLatLong(df):
@@ -44,11 +43,10 @@ def conv_to_dd(df):
     return df
 
 
+
+
 # data familiarization
 
-
-=======
->>>>>>> refs/remotes/origin/master
 def all_uniques_in_all_cols(df):
     '''
     use: lists all the unique values for evey column in a dataframe
@@ -82,13 +80,13 @@ def rows_w_col_val(df, col, val):
     return df.loc[df[col] == val]   
 
 
-
-
 def sum_two_columns(dataframe, col1, col2):
     in: a dataframe and the name of two columns as parameters
     out: returns the sum of those columns.
     pass
 
+
+# Modeling data
 
 def get_features_and_target(da): 
     ''' 

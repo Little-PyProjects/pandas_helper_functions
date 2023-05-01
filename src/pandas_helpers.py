@@ -2,15 +2,6 @@ import pandas as pd
 import os
 
 
-def load_df(filename):
-    '''
-    loads {filename} as a pandas DataFrame 
-    in: filename
-    out: returns pandas DataFrame
-    '''
-    pass
-
-
 def all_uniques_in_all_cols(df):
     '''
     use: lists all the unique values for evey column in a dataframe

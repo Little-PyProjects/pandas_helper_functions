@@ -2,13 +2,48 @@ import pandas as pd
 import os
 
 
-def load_df(filename):
-    '''
-    loads {filename} as a pandas DataFrame 
-    in: filename
-    out: returns pandas DataFrame
-    '''
-    pass
+# converting data:
+
+def splitLatLong(df):
+    """
+    Takes a single combined latitude/longitude position, breaks into two
+    columns, and gets rid of the old column.
+    """
+
+    df = df.join(df["position"].str.split(expand=True)).rename(
+        columns={0: "latitude", 1: "longitude"}
+    )
+    df.drop("position", axis=1, inplace=True)
+
+    return df
+
+
+def dms2dd(field) -> float:
+    """
+    Converts postition from Degrees, Minutes, Seconds (DMS) to decimal degrees.
+    """
+
+    degrees, minutes, seconds, direction = re.split("[°'\"]+", field)
+    dd = float(degrees) + float(minutes) / 60 + float(seconds) / (60 * 60)
+    if direction in ("S", "W"):
+        dd *= -1
+
+    return dd
+
+
+def conv_to_dd(df):
+    """
+    Sends latitude and longitude columns to dms2dd function for conversion to
+    decimal degrees.
+    """
+
+    df["latitude"] = df["latitude"].apply(dms2dd)
+    df["longitude"] = df["longitude"].apply(dms2dd)
+
+    return df
+
+
+# data familiarization
 
 
 def all_uniques_in_all_cols(df):
@@ -42,6 +77,8 @@ def rows_w_col_val(df, col, val):
     
     '''
     return df.loc[df[col] == val]   
+
+
 
 
 def sum_two_columns(dataframe, col1, col2):

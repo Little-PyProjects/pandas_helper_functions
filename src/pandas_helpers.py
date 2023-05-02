@@ -2,6 +2,24 @@ import pandas as pd
 import os
 
 
+# dealing with `NaN`s
+
+def complex_nan_overwrite(df, 'nan_col', 'fill_1', 'fill_2', 'remainders'):
+    """
+    replace NaN values in a column with values of a second column,
+    will optinally replace with optional third column if both are missing,
+    and optionally replace with a default if all three are missing
+
+    """
+
+    
+    df[nan_col] =  (df[nan_col].fillna(df[fill_1])
+                               .fillna(df[fill_2])
+                               .fillna(remainders))
+
+    return df[nan_col]
+
+
 # converting data:
 
 def splitLatLong(df):

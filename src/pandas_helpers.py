@@ -1,8 +1,16 @@
-import pandas as pd
+import pan:das as pd
 import os
 
 
 # dealing with `NaN`s
+
+def simple_nan_overwrite(df, 'nancol', 'repcol'):
+    """
+    usage:
+    in: df, 'nancol', 'repcol'
+    out:
+    """
+    return df['nancol'] = df['nancol'].fillna(df.pop('repcol'))
 
 def complex_nan_overwrite(df, 'nan_col', 'fill_1', 'fill_2', 'remainders'):
     """
@@ -62,6 +70,18 @@ def conv_to_dd(df):
 
 
 # data familiarization
+
+def each_col_count_uniques(df):
+    """
+    Print each column name with the number of unique values for that column.
+    
+    Args:
+        df (pandas.DataFrame): A DataFrame with the columns to analyze.
+    """
+    for col in df.columns:
+        unique_values = df[col].nunique()
+        print(f"{col}: {unique_values}")
+
 
 def all_uniques_in_all_cols(df):
     '''

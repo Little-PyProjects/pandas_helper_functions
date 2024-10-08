@@ -1,4 +1,4 @@
-import pan:das as pd
+import pandas as pd
 import os
 
 
@@ -6,11 +6,18 @@ import os
 
 def simple_nan_overwrite(df, 'nancol', 'repcol'):
     """
-    usage:
+    usage: For each NaN value found, it takes the value from the same row in the `repcol` column and uses it to replace the NaN value in `nancol`.
+
     in: df, 'nancol', 'repcol'
-    out:
+    out: After filling the NaN values, returns the now filled `nancol`.  `repcol` column is then removed from the DataFrame.
+
+    This is functionally the same as the following SQL:
+
+    UPDATE my_table
+    SET nancol = COALESCE(nancol, repcol);
     """
     return df['nancol'] = df['nancol'].fillna(df.pop('repcol'))
+
 
 def complex_nan_overwrite(df, 'nan_col', 'fill_1', 'fill_2', 'remainders'):
     """
@@ -20,10 +27,9 @@ def complex_nan_overwrite(df, 'nan_col', 'fill_1', 'fill_2', 'remainders'):
 
     """
 
-    
-    df[nan_col] =  (df[nan_col].fillna(df[fill_1])
-                               .fillna(df[fill_2])
-                               .fillna(remainders))
+    df[nan_col] = (df[nan_col].fillna(df[fill_1])
+                   .fillna(df[fill_2])
+                   .fillna(remainders))
 
     return df[nan_col]
 
@@ -74,7 +80,7 @@ def conv_to_dd(df):
 def each_col_count_uniques(df):
     """
     Print each column name with the number of unique values for that column.
-    
+
     Args:
         df (pandas.DataFrame): A DataFrame with the columns to analyze.
     """
@@ -88,7 +94,7 @@ def all_uniques_in_all_cols(df):
     use: lists all the unique values for evey column in a dataframe
     input: dataframe
     output: formatted output of all the unique values in the dataframe
-    
+
     '''
     for col in df.columns.to_list():
         print(f"""There are {df[col].nunique()} unique values for {col}:
@@ -96,12 +102,12 @@ def all_uniques_in_all_cols(df):
               """)
 
 
-def nulls_in_col(df, col, count:int):
+def nulls_in_col(df, col, count: int):
     '''
     use: makes a dataframe showing the rows with null in particular column
     input: dataframe, 'single column', max rows to return
     output: dataframe of rows <= count with nulls in col 
-    
+
     '''
     return df[df[col].isnull()].head(count)
 
@@ -111,9 +117,9 @@ def rows_w_col_val(df, col, val):
     use: makes a dataframe showing rows with particular in a specified column
     input: dataframe, 'single column', 'value to search'
     output: dataframe of rows <= count with nulls in col 
-    
+
     '''
-    return df.loc[df[col] == val]   
+    return df.loc[df[col] == val]
 
 
 def sum_two_columns(dataframe, col1, col2):
@@ -122,9 +128,10 @@ def sum_two_columns(dataframe, col1, col2):
     pass
 
 
+
 # Modeling data
 
-def get_features_and_target(da): 
+def get_features_and_target(da):
     ''' 
     return the features X and target y from a dataframe as NumPy arrays,
     so that we could use them in a machine learning algorithm.

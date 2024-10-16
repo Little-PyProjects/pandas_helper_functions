@@ -89,17 +89,23 @@ def each_col_count_uniques(df):
         print(f"{col}: {unique_values}")
 
 
-def all_uniques_in_all_cols(df):
+def all_uniques_in_cols(df, cols=None):
     '''
-    use: lists all the unique values for evey column in a dataframe
-    input: dataframe
+    use: lists all the unique values for selected columns. Default is all columns
+    input: dataframe, optional list of columns
     output: formatted output of all the unique values in the dataframe
-
     '''
-    for col in df.columns.to_list():
-        print(f"""There are {df[col].nunique()} unique values for {col}:
+    if cols is None:
+        cols = df.columns.to_list()
+    
+    for col in cols:
+        print(f"""There are {df[col].nunique()} unique values for {col}: 
               {df[col].unique()}
               """)
+
+# Example usage
+# all_uniques_in_all_cols(df) 
+# all_uniques_in_all_cols(df, ['subreg','navregion']) 
 
 
 def nulls_in_col(df, col, count: int):

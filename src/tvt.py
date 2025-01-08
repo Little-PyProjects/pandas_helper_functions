@@ -1,8 +1,12 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-"""
-    Preprocess the dataset by splitting it into training, validation, and test sets, 
+
+def preprocess_data(
+    df, target_col="total_sales_price", test_size=0.2, val_size=0.25, random_state=1
+):
+    """
+    Preprocess the dataset by splitting it into training, validation, and test sets,
     and separating the target variable. Default is 60/20/20 split
 
     Parameters:
@@ -21,21 +25,28 @@ from sklearn.model_selection import train_test_split
         - y_val (pd.Series): The target values for the validation set.
         - y_test (pd.Series): The target values for the test set.
     """
-    
-    df_full_train, df_test = train_test_split(df, test_size=test_size, random_state=random_state)
-    df_train, df_val = train_test_split(df_full_train, test_size=val_size, random_state=random_state)
-    
+
+    df_full_train, df_test = train_test_split(
+        df, test_size=test_size, random_state=random_state
+    )
+    df_train, df_val = train_test_split(
+        df_full_train, test_size=val_size, random_state=random_state
+    )
+
     # Reset indices and separate target variable
     df_train = df_train.reset_index(drop=True)
     df_val = df_val.reset_index(drop=True)
     df_test = df_test.reset_index(drop=True)
-    
+
     y_train = df_train.pop(target_col)
     y_val = df_val.pop(target_col)
     y_test = df_test.pop(target_col)
-    
+
     return df_train, df_val, df_test, y_train, y_val, y_test
 
-# Example usage:
-#df_train, df_val, df_test, y_train, y_val, y_test = preprocess_data(df, target_col='jamb_score', random_state=1)
 
+# Example usage:
+# df_train, df_val, df_test, y_train, y_val, y_test = preprocess_data(df, target_col='jamb_score', random_state=1)
+
+# Example usage:
+# df_train, df_val, df_test, y_train, y_val, y_test = preprocess_data(df, target_col="total_sales_price", test_size=0.2, val_size=0.25, random_state=1)
